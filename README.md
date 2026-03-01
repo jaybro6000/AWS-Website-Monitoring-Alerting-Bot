@@ -3,9 +3,13 @@ A proactive, serverless monitoring solution built using AWS CloudWatch Synthetic
 
 ## 🏗️ Architecture & Workflow
 This project implements a "Heartbeat" monitoring pattern to detect and alert on website downtime in real-time:
+
 Monitoring Engine: Utilizes a CloudWatch Synthetics Canary running a Node.js/Puppeteer script to perform periodic page loads.
+
 Failure Detection: A CloudWatch Alarm is configured to trigger if the "Failed" metric is greater than 0 for a 1-minute period.
+
 Real-time Alerting: Integrates with an Amazon SNS Topic (Website-Status-Alerts) to dispatch instant email notifications to administrators upon failure.
+
 Data Storage: Logs and visual screenshots of each canary run are stored in an Amazon S3 bucket for troubleshooting and audit trails.
 
 ## 🧪 Testing & Validation
