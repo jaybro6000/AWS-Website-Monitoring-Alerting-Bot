@@ -1,6 +1,34 @@
 # AWS Website Monitoring & Alerting Bot
 
-Serverless **Website Watchdog** built with **AWS CloudWatch Synthetics** & **SNS**. Uses **Node.js/Puppeteer** canaries to monitor 24/7 uptime. Includes **CloudWatch Alarms** for instant email alerts via **SNS** upon failure. Proven via fault-injection testing with 100% detection accuracy. ✨
+AWS Website Monitoring & Alerting Bot
+A proactive, serverless monitoring solution built using AWS CloudWatch Synthetics (Canaries) and Amazon SNS to ensure 24/7 website availability.
+
+🏗️ Architecture & Workflow
+This project implements a "Heartbeat" monitoring pattern to detect and alert on website downtime in real-time:
+
+Monitoring Engine: Utilizes a CloudWatch Synthetics Canary running a Node.js/Puppeteer script to perform periodic page loads.
+
+Failure Detection: A CloudWatch Alarm is configured to trigger if the "Failed" metric is greater than 0 for a 1-minute period.
+
+Real-time Alerting: Integrates with an Amazon SNS Topic (Website-Status-Alerts) to dispatch instant email notifications to administrators upon failure.
+
+Data Storage: Logs and visual screenshots of each canary run are stored in an Amazon S3 bucket for troubleshooting and audit trails.
+
+🧪 Testing & Validation
+To verify the end-to-end alerting pipeline, I performed a "Chaos Test":
+
+Baseline: Confirmed 100% success rate while monitoring a healthy endpoint (https://www.google.com/search?q=Google.com).
+
+Fault Injection: Manually updated the canary script to target a non-existent URL (not-a-real-website-1234.com).
+
+Validation: Verified the system successfully detected the 404/Timeout error, transitioned the alarm to the ALARM state, and delivered a detailed alert email within 60 seconds.
+
+📊 Key Metrics Monitored
+Pass/Fail Rate: Visualized via the Synthetics Overview dashboard.
+
+Average Duration: Tracking page load latency in milliseconds.
+
+Availability %: Calculated over 1h, 3h, and 1d windows to track SLA compliance.
 
 ---
 
